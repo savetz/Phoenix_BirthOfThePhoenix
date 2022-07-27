@@ -1,0 +1,15 @@
+ 10 D$ =  CHR$ (4)
+ 20 T = 3 * 256
+ 30  POKE T,165: POKE T + 1,255: POKE T + 2,32: POKE T + 3,5: POKE T + 4,195: POKE T + 5,96
+ 35 T = 12 * 4096 + 11 * 16 + 1:ST = T - 1
+ 40 S = 12 * 256
+ 50 L = 68 * 256
+ 60  PRINT D$;"BLOAD BIRTH.OBJ0,A";S
+ 65  PRINT D$;"PR#3": PRINT " "
+ 70  FOR I = S TO S + L
+ 80 A =  PEEK (I)
+ 90 C =  PEEK (ST):E =  INT (C / 4):C = C - E * 4: IF C = 0 THEN 90
+ 100  POKE T,A
+ 110  NEXT I
+ 120  PRINT D$;"PR#0"
+ 130  PRINT "<DONE>"

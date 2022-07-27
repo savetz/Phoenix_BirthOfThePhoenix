@@ -1,0 +1,165 @@
+INST     DCI   /                  BIRTH OF THE PHOENIX/ 
+         DCI   /           COPYRIGHT 1982 PHOENIX SOFTWARE INC./ 
+         DCI   /               PROGRAMMED BY PAUL L. BERKER/
+         DCI   /          /
+         DCI   /WELCOME   TO ADVENTURING./
+         DCI   /YOU'RE ABOUT TO LEAVE THE ORDINARY,/
+         DCI   /EVERYDAY  WORLD YOU INHABIT AND ENTER A/
+         DCI   /NEW       WORLD...A WORLD WHERE MAGIC WORKS/
+         DCI   /AND       THINGS AREN'T QUITE WHAT THEY SEEM./
+         DCI   /I         SUGGEST YOU READ THROUGH PAGE 6 OF/
+         DCI   /THE       MANUAL BEFORE STARTING THE GAME./
+         DCI   /TYPE      IN TWO WORD COMMANDS SUCH AS/
+         DCI   /"GET BRANCH" AND I'LL DO MY VERY BEST/
+         DCI   /TO        DO WHAT YOU ASK./
+         DCI   /REMEMBER, IN THE WORDS OF THAT FAMOUS/
+         DCI   /ADVENTURER, Q. ELDON MUGWUMP:/
+         DCI   /          /
+         DCI   /              AN ADVENTURER FRESH FROM MURMISK,/
+         DCI   /              SAID, AS HE BOOTED A DISK,/
+         DCI   /              YOU GIVE IT A TRY,/
+         DCI   /              (I'M AFRAID I MIGHT DIE),
+         DCI   /              PRESS RETURN NOW AT YOUR OWN RISK./ 
+         DFB   00
+RMDIR    DFB   0,0,6,0,0,0,2,0,0,0 
+         DFB   3,0,1,0,0,0,0,0,0,0
+         DFB   0,0,4,0,2,0,0,0,0,21
+         DFB   0,0,5,0,0,0,3,0,0,0
+         DFB   0,0,0,0,0,0,4,0,0,0
+         DFB   0,0,0,0,0,0,1,0,0,0
+         DFB   0,14,0,0,0,0,0,23,0,0
+         DFB   10,8,8,23,8,8,8,8,8,8
+         DFB   9,9,9,9,10,9,8,9,9,9 
+         DFB   13,10,10,10,8,10,10,9,10,10 
+         DFB   11,11,11,11,12,11,11,11,8,11 
+         DFB   12,12,11,12,12,12,12,12,12,12 
+         DFB   13,13,13,13,13,13,12,13,13,13 
+         DFB   0,0,15,0,0,7,0,0,0,0
+         DFB   16,0,0,0,0,0,14,0,0,0
+         DFB   0,0,0,0,15,0,17,0,0,0
+         DFB   0,0,16,0,0,0,18,0,0,0
+         DFB   19,0,17,0,0,0,0,0,0,0
+         DFB   20,0,0,0,18,0,0,0,0,0
+         DFB   0,0,0,0,19,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,3,0
+         DFB   0,0,0,0,0,0,0,0,0,2
+ROOM23   DFB   0,0,0,7,0,0,0,8,0,0
+RMDESC   DCI   /YOU'RE IN A FOREST GLADE./ 
+         DCI   /YOU'RE IN A FOREST./
+         DCI   /YOU'RE AT THE WELL IN A CLEARING./ 
+         DCI   /YOU'RE AT A CLIFF./
+         DCI   /YOU'RE IN A SHALLOW CAVE./ 
+         DCI   /YOU'RE IN A TOOLSHED./
+         DCI   /YOU'RE AT A CLIFF./
+         DCI   /YOU'RE IN A MOST CONFUSING MAZE./ 
+         DCI   /YOU'RE IN A MOST CONFUSING MAZE./
+         DCI   /YOU'RE IN A MOST CONFUSING MAZE./
+         DCI   /YOU'RE IN THE HALL OF THE PHOENIX./ 
+         DCI   /YOU'RE IN A MOST CONFUSING MAZE./
+         DCI   /YOU'RE IN A MOST CONFUSING MAZE./ 
+         DCI   /YOU'RE ON A ROAD TO THE MOUNTAINS./ 
+         DCI   /YOU'RE IN THE MOUNTAINS./
+         DCI   /YOU'RE AT A MOUNTAIN PASS./
+         DCI   /YOU'RE ON A ROCKY ROAD./
+         DCI   /YOU'RE ON THE ROAD TO HELIOPOLIS./
+         DCI   /YOU'RE IN THE TREASURY./
+         DCI   /YOU'RE IN THE TEMPLE OF THE SUN./
+         DCI   /YOU'RE AT THE BOTTOM OF A WELL./
+         DCI   /YOU'RE HIGH UP IN A TREE TOP./ 
+         DCI   /YOU'RE BY THE GUARDHOUSE./
+DETAIL   DFB   51,53,55,57,59,61,62,0,0,0 
+         DFB   65,0,0,67,68,69,70,71,72,73 
+         DFB   75,76,63   
+BENBEF   DFB   1,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0      
+COMMAND  ASC/N NE         E SE S SW W NW U D / 
+         ASC   /NORTH     NORTHEAST EAST SOUTHEAST SOUTH SOUTHWEST WEST NORTHWEST UP DOWN /
+         ASC   /GO        LOOK EXAMINE GET TAKE DROP /
+         ASC   /PUT       TAP HIT PRESS PUSH /
+         ASC   /MOVE      TURN STRAIGHTEN OPEN CLOSE /
+         ASC   /JUMP      LEAP READ SAY UTTER /
+         ASC   /KILL      ATTACK FEED DRUG GIVE /
+         ASC   /CLIMB     DRINK EAT I INVEN /
+         ASC   /INVENTORY HELP HINT SCORE RUB /
+         ASC   /ON        LIGHT DIG CATCH STORE /
+         ASC   /WIND      FUCK SHIT QUIT SAVE /
+         ASC   /RESTORE   GAME YOU PAGE STICK /
+         ASC   /BRANCH    PHOENIX MYRRH DIAMONDS (DIAMONDS) /
+         ASC   /RUBIES    (RUBIES) SAPPHIRES (SAPPHIRES) SHOVEL /
+         ASC   /KEY       KEYS NET POTION BOOK /
+         ASC   /PAPER     RED GREEN ORANGE YELLOW /
+         ASC   /BLUE      PURPLE BAG FLASHLIGHT CLOCK /
+         ASC   /DIAL      GUARD TREE WALL 10 / 
+         ASC   /22        35 RELEASE FREE SAFE / 
+         ASC   /OFFER     /
+OBJVAL   DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,20,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   1,2,3,4,5,5,6,6,7,7
+         DFB   8,9,9,10,11,12,0,13,14,15
+         DFB   16,17,18,19,20,21,22,23,24,0 
+         DFB   0,0,0,0,0,26,0 
+OBJECT   DFB   14,0,0
+         DFB   22,0,0
+         DFB   11,1,0
+         DFB   20,0,0
+         DFB   0,0,2
+         DFB   21,0,2
+         DFB   18,0,2
+         DFB   6,0,0
+         DFB   7,0,0
+         DFB   22,0,0
+         DFB   17,0,0
+         DFB   1,0,95     
+         DFB   0,0,0
+         DFB   0,0,0
+         DFB   0,0,0
+         DFB   0,0,0
+         DFB   0,0,0
+         DFB   0,0,0
+         DFB   0,0,0
+         DFB   6,0,0
+         DFB   16,1,0
+         DFB   5,1,0
+         DFB   23,1,0
+         DFB   2,1,0
+         DFB   0,0,0
+         DFB   5,1,0
+OBJNAM   DCI   /STICK/    
+         DCI   /BRANCH/
+         DCI   /PHOENIX/
+         DCI   /MYRRH/
+         DCI   /(DIAMONDS)/
+         DCI   /(RUBIES)/
+         DCI   /(SAPPHIRES)/
+         DCI   /SHOVEL/
+         DCI   /KEY/
+         DCI   /NET/
+         DCI   /POTION/
+         DCI   /BOOK/
+         DCI   /RED       PAPER/
+         DCI   /GREEN     PAPER/
+         DCI   /ORANGE    PAPER/
+         DCI   /YELLOW    PAPER/
+         DCI   /BLUE      PAPER/
+         DCI   /PURPLE    PAPER/
+         DCI   /BAG/
+         DCI   /FLASHLIGHT/
+         DCI   /CLOCK/
+         DCI   /DIAL/
+         DCI   /GUARD/
+         DCI   /TREE/
+         DCI   /PHOENIX   IN NET/ 
+         DCI   /SAFE/
+OBDET    DFB   77,78,79,0,80,0,81,82,83,84 
+         DFB   85,90,86,86,86,86,86,86,87,88 
+         DFB   136,0,89,111,0,154 
+HELPMS   DFB   104,105,102,105,106,106,102,108,108,108 
+         DFB   103,108,108,103,102,109,102,103,112,103 
+         DFB   110,102,107 
+         CHN   SYSMSG

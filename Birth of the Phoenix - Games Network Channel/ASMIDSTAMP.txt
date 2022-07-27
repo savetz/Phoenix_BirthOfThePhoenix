@@ -1,0 +1,10 @@
+03B8-   C7          ???
+03B9-   C1 CD       CMP   ($CD,X)
+03BB-   C5 A0       CMP   $A0
+03BD-   C3          ???
+03BE-   C8          INY
+03BF-   CE CC A0    DEC   $A0CC
+03C2-   A3          ???
+03C3-   B0 B0       BCS   $0375
+03C5-   B0 B0       BCS   $0377
+03C7-   B0 B7       BCS   $0380

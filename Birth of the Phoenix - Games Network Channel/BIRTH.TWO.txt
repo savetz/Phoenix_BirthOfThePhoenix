@@ -1,0 +1,607 @@
+*********************
+* ATTACK COMMAND    *
+*********************
+ATTACK   LDA   NOUNH
+         RTS
+******************
+* SCORE COMMAND  *
+******************
+SCORE    LDA   NOUNH      
+         BNE   NOSCOR
+         JSR   SCORE1
+         JMP   SYSMSG
+NOSCOR   LDA   #1
+         JMP   SYSMSG
+SCORE1   LDA   #131
+         STA   FLAG3
+         LDA   OBJECT+12
+         CMP   #19
+         BNE   SCR2
+         INC   FLAG3
+SCR2     LDA   OBJECT+15
+         CMP   #19
+         BNE   SCR3
+         INC   FLAG3
+SCR3     LDA   OBJECT+18
+         CMP   #19
+         BNE   SCR4
+         INC   FLAG3
+SCR4     LDA   FLAG3
+         RTS
+**********************
+* RUB COMMAND        *
+**********************
+RUB      LDA   NOUNH
+         BEQ   NORUB0
+         TAY
+         LDA   OBJVAL,Y
+         STA   HOLD
+         BEQ   NORUB1
+         JSR   LOCOBJ
+         CMP   #$FF
+         BNE   NORUB2
+         LDA   HOLD
+         CMP   #3
+         BCS   NORUB3
+         LDA   OBJECT
+         CMP   #$FF
+         BNE   NORUB3
+         LDA   OBJECT+3
+         CMP   #$FF
+         BNE   NORUB3
+         LDA   ROOM
+         CMP   #20
+         BNE   RUB1
+         LDA   OBJECT+72
+         CMP   #$FF
+         BEQ   RUB2
+         CMP   ROOM
+         BEQ   RUB2
+         JMP   RUBX
+NORUB0   LDA   #119
+         JMP   SYSMSG
+NORUB1   LDA   #22
+         JMP   SYSMSG
+NORUB2   LDA   #24
+         JMP   SYSMSG
+NORUB3   LDA   #27
+         JMP   SYSMSG
+RUBX     LDA   #00
+         STA   OBJECT
+         STA   OBJECT+3
+         DEC   CARRY
+         DEC   CARRY
+         LDA   #148
+         JMP   SYSMSG
+RUB2     JSR   SCORE1
+         CMP   #134
+         BNE   RUB3
+         JSR   DESCRP
+         JSR   PDIR
+         JSR   POBJ
+         JSR   TEXSC
+         LDA   #149
+         JSR   SYSMSG
+         JMP   WON
+WON      LDA   #00
+         JMP   WON
+RUB3     JSR   DESCRP
+         JSR   PDIR
+         JSR   POBJ
+         JSR   TEXSC
+         LDA   #151
+         JSR   SYSMSG
+         JMP   DEADY
+RUB1     LDA   OBJECT+72
+         CMP   #$FF
+         BEQ   RUB4
+         CMP   ROOM
+         BEQ   RUB4
+         JMP   RUBX
+RUB4     LDA   #152
+         JSR   SYSMSG
+         JSR   DESCRP
+         JSR   PDIR
+         JSR   POBJ
+         JSR   TEXSC
+         JMP   DEADY
+*********************
+*  FEED COMMAND     *
+*********************
+FEED     LDA   NOUNH
+         RTS
+*********************
+* DRUG COMMAND      *
+*********************
+DRUG     LDA   NOUNH
+         CMP   #97
+         BNE   DRUG1
+         LDA   #84
+         STA   NOUNH
+         JMP   GIVE
+DRUG1    LDA   #2
+         JMP   SYSMSG
+********************
+* CLIMB & GO CMMD. *
+********************
+CLIMB    LDA   NOUNH
+         CMP   #98        
+         BEQ   CLOK
+         LDA   #4
+         JMP   SYSMSG
+CLOK     LDA   ROOM
+         CMP   #2
+         BNE   CLOK1
+         LDA   #22        
+         STA   RMHOLD     
+         LDA   #9
+         JSR   SYSMSG
+         JMP   RMD1
+CLOK1    CMP   #22
+         BNE   NOCLIMB
+         LDA   #10
+         JMP   SYSMSG
+NOCLIMB  LDA   #42        
+         JMP   SYSMSG
+**********************
+* DRINK AND EAT CMMD *
+**********************
+DRINK    LDA   NOUNH
+         BEQ   NODRK0
+         TAY
+         LDA   OBJVAL,Y
+         BEQ   NODRK1
+         STA   HOLD
+         JSR   LOCOBJ
+         CMP   #$FF
+         BNE   NODRK2
+         LDA   HOLD
+         CMP   #11         
+         BNE   DRINK3     
+DRINK0   LDA   #126       
+         JSR   SYSMSG
+         JMP   DEADY
+DRINK3   LDA   #22
+         JMP   SYSMSG
+NODRK0   LDA   #26
+         JMP   SYSMSG
+NODRK1   LDA   #22
+         JMP   SYSMSG
+NODRK2   LDA   #24
+         JMP   SYSMSG
+**********************
+* TURN COMMAND       *
+**********************
+TURN     LDA   NOUNH
+         BEQ   NOTUR0
+         TAY
+         LDA   OBJVAL,Y
+         BNE   TURN1      
+         LDA   NOUNH
+         CMP   #69
+         BNE   TURN1
+         LDA   #12        
+         JSR   LOCOBJ
+         CMP   #$FF
+         BNE   NOTUR2
+         LDA   OBJECT+35
+         CMP   #95
+         BEQ   NOTUR3
+         CLC
+         ADC   #01
+         CMP   #95
+         BCS   NOTUR4
+         STA   OBJECT+35
+         LDA   #9
+         JMP   SYSMSG
+NOTUR1   LDA   #22
+         JMP   SYSMSG
+NOTUR0   LDA   #26        
+         JMP   SYSMSG     
+NOTUR2   LDA   #24
+         JMP   SYSMSG
+NOTUR3   LDA   #95
+         JMP   SYSMSG
+NOTUR4   LDA   #94
+         JMP   SYSMSG
+TURN1    LDA   NOUNH      
+         CMP   #96
+         BNE   NOTUR1
+         LDA   ROOM
+         CMP   #5
+         BNE   NOTUR1
+         LDA   FLAG4
+         BNE   BOING2
+         LDA   #140
+         STA   FLAG2
+         JSR   MANDRX
+         LDA   VERBH
+         CMP   #100
+         BNE   BOING
+         LDA   #141
+         JSR   SYSMSG
+         JSR   MANDRX
+         LDA   VERBH
+         CMP   #101
+         BNE   BOING
+         LDA   #141
+         JSR   SYSMSG
+         JSR   MANDRX
+         LDA   VERBH
+         CMP   #102
+         BNE   BOING
+         LDA   #141
+         JSR   SYSMSG
+         LDA   #142
+         JSR   SYSMSG
+         LDA   ROOM
+         STA   OBJECT+12
+         INC   FLAG4
+         LDA   #00
+         STA   FLAG2
+         RTS
+BOING    LDA   #00
+         STA   FLAG2
+         LDA   #144
+         JMP   SYSMSG
+BOING2   LDA   #143
+         JMP   SYSMSG
+************************
+*  CLOSE COMMAND       *
+************************
+CLOSE    LDA   NOUNH
+         BEQ   NOCLOS0
+         TAY
+         LDA   OBJVAL,Y
+         BEQ   NOCLOS1
+         STA   HOLD
+         JSR   LOCOBJ
+         CMP   #$FF
+         BNE   NOCLOS2
+         LDA   HOLD
+         CMP   #12
+         BNE   CLOSE2
+         LDA   #95
+         STA   OBJECT+35
+         JMP   SYSMSG
+CLOSE2   NOP
+NOCLOS1  LDA   #22
+         JMP   SYSMSG
+NOCLOS0  LDA   #26
+         JMP   SYSMSG
+NOCLOS2  LDA   #24
+         JMP   SYSMSG
+************************
+*  GIVE COMMAND        *
+************************
+GIVE     LDA   NOUNH
+         BEQ   NOGIV0
+         TAY
+         LDA   OBJVAL,Y
+         BEQ   NOGIV1
+         STA   HOLD
+         JSR   LOCOBJ
+         CMP   #$FF
+         BNE   NOGIV2
+         LDA   HOLD
+         CMP   #11
+         BNE   GIVE1
+         LDA   ROOM
+         CMP   #23        
+         BNE   GIVE1
+         LDA   ROOM
+         STA   OBJECT+30
+         LDA   #01
+         STA   OBJECT+31
+         LDA   #129
+         STA   OBDET+10
+         DEC   CARRY
+         INC   FLAG1
+         LDA   #128
+         STA   OBDET+22
+         LDA   #127
+         JMP   SYSMSG
+GIVE1    LDA   ROOM
+         STA   (POINT),Y
+         DEC   CARRY
+         LDA   #09
+         JMP   SYSMSG
+NOGIV0   LDA   #26
+         JMP   SYSMSG
+NOGIV1   LDA   #22
+         JMP   SYSMSG
+NOGIV2   CMP   ROOM
+         BNE   NOGIV3
+         LDA   HOLD
+         CMP   #23
+         BNE   NOGIV4
+         LDA   #12
+         JMP   SYSMSG
+NOGIV3   LDA   #21
+         JMP   SYSMSG
+NOGIV4   LDA   #24
+         JMP   SYSMSG
+************************
+*  ONLITE COMMAND      *
+************************
+ONLITE   LDA   NOUNH
+         BEQ   NOLIT0
+         TAY
+         LDA   OBJVAL,Y
+         BEQ   NOLIT2
+         STA   HOLD
+         JSR   LOCOBJ
+         CMP   #$FF
+         BNE   NOLIT1
+         LDA   HOLD
+         CMP   #20
+         BNE   NOLIT2
+         LDA   OBJECT+59
+         BNE   NOLIT3
+         LDA   #02
+         STA   KOUNT
+         LDA   #99
+         JMP   SYSMSG
+NOLIT0   LDA   #26
+         JMP   SYSMSG
+NOLIT1   LDA   #24
+         JMP   SYSMSG
+NOLIT2   LDA   #22
+         JMP   SYSMSG
+NOLIT3   LDA   #101
+         JMP   SYSMSG
+************************
+*  LIGHT COMMAND       *
+************************
+LIGHT    LDA   NOUNH
+         BEQ   NOLT0
+         CMP   #56
+         BEQ   LIGH1
+         JMP   NOLT2
+LIGH1    LDA   VERBH
+         STA   NOUNH
+         JMP   ONLITE
+NOLT0    LDA   #26
+         JMP   SYSMSG
+NOLT2    LDA   #22
+         JMP   SYSMSG
+************************
+*  DIG COMMAND         *
+************************
+DIG      LDA   NOUNH
+         BNE   NODIG0
+         LDA   #120
+         STA   FLAG2
+         JSR   MANDRX     
+         LDA   #00
+         STA   FLAG2
+         LDA   VERBH
+         BEQ   NODIG1
+         TAY
+         LDA   OBJVAL,Y
+         BEQ   NODIG2
+         STA   HOLD
+         JSR   LOCOBJ
+         CMP   #$FF
+         BNE   NODIG3
+         LDA   HOLD
+         CMP   #08        
+         BNE   NODIG2
+         LDA   ROOM
+         CMP   #23        
+         BNE   NODIG4
+         LDA   OBJECT+54
+         BNE   NODIG5
+         LDA   ROOM
+         STA   OBJECT+54
+         LDA   #123
+         JMP   SYSMSG
+NODIG0   LDA   #1
+         JMP   SYSMSG
+NODIG1   LDA   #122       
+         JMP   SYSMSG
+NODIG2   LDA   #122
+         JMP   SYSMSG
+NODIG3   LDA   #24
+         JMP   SYSMSG
+NODIG4   LDA   #121
+         JMP   SYSMSG
+NODIG5   LDA   #124
+         JMP   SYSMSG
+**********************
+* GET COMMAND AND    *
+* TAKE ACTION.       *
+**********************
+MANDRX   JSR   GET        
+         STX   TEMP1      
+         LDA   #$00
+         STA   HOLD
+         STA   NOUNH      
+         STA   VERBH
+         TXA   
+         BEQ   TENDX      
+         JSR   VERBFD
+         CPY   #$FF
+         BEQ   TENDVX     
+         STY   VERBH
+         RTS
+TENDVX   NOP   
+TENDX    RTS
+************************
+*  CATCH COMMAND       *
+************************
+CATCH    LDA   NOUNH
+         CMP   #72
+         BNE   NOCAT0
+         TAY
+         LDA   OBJVAL,Y
+         CMP   #03
+         BNE   NOCAT3
+         JSR   LOCOBJ
+         CMP   ROOM
+         BNE   NOCAT1
+         LDA   OBJECT+27
+         CMP   #$FF
+         BNE   NOCAT2
+         LDA   #00
+         STA   OBJECT+27
+         STA   OBJECT+6
+         DEC   CARRY
+         LDA   #25
+         STA   OBJVAL+72
+         LDA   ROOM
+         STA   OBJECT+72
+         LDA   #146
+         JMP   SYSMSG
+NOCAT0   LDA   #22
+         JMP   SYSMSG
+NOCAT1   LDA   #21
+         JMP   SYSMSG
+NOCAT2   LDA   #145
+         JMP   SYSMSG
+NOCAT3   LDA   #28
+         JMP   SYSMSG
+********************
+* FREE COMMAND     *
+********************
+FREE     LDA   NOUNH
+         BEQ   NOFRE0
+         CMP   #72
+         BNE   NOFRE1
+         TAY
+         LDA   OBJVAL,Y
+         JSR   LOCOBJ
+         CMP   #$FF
+         BNE   NOFRE2
+         LDA   #00
+         STA   OBJECT+72
+         DEC   CARRY
+         LDA   ROOM
+         CMP   #20
+         BNE   FREE1
+         STA   OBJECT+72
+         LDA   #09
+         JMP   SYSMSG
+FREE1    STA   OBJECT+6
+         LDA   #147
+         JSR   SYSMSG
+         JMP   DEADY
+NOFRE0   LDA   #26
+         JMP   SYSMSG
+NOFRE1   LDA   #22
+         JMP   SYSMSG
+NOFRE2   LDA   #24
+         JMP   SYSMSG
+************************
+*  STORE COMMAND       *
+************************
+STORE    LDA   ROOM       
+         CMP   #19
+         BNE   NOSTOR
+         LDA   NOUNH
+         BEQ   NOSTOR1
+         JMP   DROP
+NOSTOR   LDA   #135
+         JMP   SYSMSG
+NOSTOR1  LDA   #38
+         JMP   SYSMSG
+************************
+*  WIND COMMAND        *
+************************
+WIND     LDA   NOUNH
+         BEQ   NOWND0
+         TAY
+         LDA   OBJVAL,Y
+         BEQ   NOWND1
+         STA   HOLD
+         JSR   LOCOBJ
+         CMP   ROOM
+         BNE   WIND1
+         LDA   HOLD
+         CMP   #21
+         BNE   NOWND1
+         LDA   OBJECT+24
+         CMP   #$FF
+         BNE   NOWND3
+         LDA   #200       
+         STA   KOUNT2
+         LDA   #139
+         STA   OBDET+20
+         LDA   #137
+         JMP   SYSMSG
+WIND1    CMP   #$FF
+         BNE   NOWND2
+NOWND1   LDA   #22
+         JMP   SYSMSG
+NOWND0   LDA   #26
+         JMP   SYSMSG
+NOWND2   LDA   #21
+         JMP   SYSMSG
+NOWND3   LDA   #11
+         JMP   SYSMSG
+**********************
+* SET BOTTOM TEXT    *
+**********************
+TEXSC    LDA   #24
+         STA   WNDBTM
+         LDA   SPLIT
+         STA   WNDTOP
+         LDA   #23
+         JSR   TABV
+         LDA   #$8D
+         JSR   COUT
+         RTS
+**********************
+*  TABV  SCREEN      *
+**********************
+TABV     STA   CV
+         JSR   BASCALC
+         ADC   WNDLFT
+         STA   BASL
+         RTS
+*
+BASCALC  PHA
+         LSR   A
+         AND   #$03
+         ORA   #$04
+         STA   BASH
+         PLA
+         AND   #$18
+         BCC   BSCLC2
+         ADC   #$7F
+BSCLC2   STA   BASL
+         ASL   A
+         ASL   A
+         ORA   BASL
+         STA   BASL
+         RTS
+*
+***********************
+* CLREOP  CLEAR TO END*
+*          OF PAGE    *
+***********************
+CLREOP   LDY   CH
+         LDA   CV
+CLEOP1   PHA
+         JSR   VTABZ
+         JSR   CLEOLZ
+         LDY   #$00
+         PLA
+         ADC   #$00
+         CMP   WNDBTM
+         BCC   CLEOP1
+         BCS   VTAB
+*
+CLEOLZ   LDA   #$A0
+CLEOL2   STA   (BASL),Y
+         INY
+         CPY   WNDWDTH
+         BCC   CLEOL2
+         RTS
+*
+VTAB     LDA   CV
+VTABZ    JSR   BASCALC
+         ADC   WNDLFT
+         STA   BASL
+         RTS
+         CHN   BIRTH.TABLE 
